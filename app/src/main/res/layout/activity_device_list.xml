@@ -7,6 +7,32 @@ android:layout_height="match_parent"
 android:orientation="vertical"
 tools:context=".DeviceListActivity">
 
+
+
+    <TextView
+        android:id="@+id/txtvu_device_list_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_paired_devices"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/list_paired_devices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/txtvu_device_list_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_available_devices"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
     <ProgressBar
         android:id="@+id/progress_scan_devices"
         android:layout_width="25dp"
@@ -14,23 +40,9 @@ tools:context=".DeviceListActivity">
         android:layout_gravity="center"
         android:visibility="gone" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/str_paired_devices" />
-
-    <ListView
-        android:id="@+id/list_paired_devices"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/str_available_devices" />
-
     <ListView
         android:id="@+id/list_available_devices"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="10dp"/>
 </LinearLayout>

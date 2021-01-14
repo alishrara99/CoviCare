@@ -108,6 +108,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(context, "Bluetooth Enabled", Toast.LENGTH_SHORT).show();
         }
 
+        if (bluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE){
+            Intent discoveryIntent = new Intent (BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoveryIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION,300);
+            startActivity(discoveryIntent);
+        }
+
     }
 
 }

@@ -286,7 +286,7 @@ public class ChatUtils {
     private synchronized void connectionFailed() {
         Message message = handler.obtainMessage(MainActivity.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        bundle.putString(MainActivity.TOAST, "Cant connect to the device");
+        bundle.putString(MainActivity.TOAST, "Awaiting connection..");
         message.setData(bundle);
         handler.sendMessage(message);
 

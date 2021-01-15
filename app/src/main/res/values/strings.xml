@@ -7,4 +7,17 @@
     <string name="str_paired_devices">Paired Devices</string>
     <string name="str_available_devices">Available Devices</string>
     <string name="str_menu_scan_devices">Scan Devices</string>
+
+    <string name="str_im_hungry">I’m Hungry</string>
+    <string name="str_im_thirsty">I’m Thirsty</string>
+    <string name="str_i_feel_pain">I Feel Pain</string>
+    <string name="str_i_need_restroom">Need Restroom</string>
+    <string name="str_need_medicine">Need Medicine</string>
+    <string name="str_bad_condition">Bad Condition</string>
+    <string name="str_yes">Yes</string>
+    <string name="str_no">No</string>
+    <string name="str_stable_condition">Stable Condition</string>
+
+
+
 </resources>

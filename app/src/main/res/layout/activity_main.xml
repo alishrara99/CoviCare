@@ -51,12 +51,12 @@
 
             <TextView
                 android:id="@+id/txtvu_main_1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:text="OK!"
+                android:text="@string/str_im_hungry"
                 android:textAlignment="center">
 
                 <requestFocus />
@@ -64,19 +64,19 @@
 
             <TextView
                 android:id="@+id/txtvu_main_2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
+                android:text="@string/str_im_thirsty"
                 android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/txtvu_main_3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="center"/>
+                android:text="@string/str_i_feel_pain"
+                android:textAlignment="center" />
         </LinearLayout>
     </LinearLayout>
 
@@ -124,27 +124,27 @@
 
             <TextView
                 android:id="@+id/txtvu_main_4"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="center"/>
+                android:text="@string/str_i_need_restroom"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/txtvu_main_5"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="center"/>
+                android:text="@string/str_need_medicine"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/txtvu_main_6"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="center"/>
+                android:text="@string/str_bad_condition"
+                android:textAlignment="center" />
         </LinearLayout>
     </LinearLayout>
 
@@ -182,7 +182,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/settingsicon" />
+                android:src="@drawable/settingsicon"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -192,27 +193,28 @@
 
             <TextView
                 android:id="@+id/txtvu_main_7"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="center"/>
+                android:text="@string/str_yes"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/txtvu_main_8"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="center"/>
+                android:text="@string/str_no"
+                android:textAlignment="center" />
 
             <TextView
                 android:id="@+id/txtvu_main_9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
-                android:textAlignment="center"/>
+                android:text="@string/str_stable_condition"
+                android:textAlignment="center"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 
@@ -236,6 +238,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="60dp"
+                android:padding="10dp"
                 android:background="#efefef" />
 
             <RelativeLayout

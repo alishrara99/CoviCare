@@ -29,10 +29,6 @@ import android.widget.ListView;
 
 
 
-
-
-
-
 public class MainActivity extends AppCompatActivity {
     private Context context;
     private BluetoothAdapter bluetoothAdapter;
@@ -42,6 +38,14 @@ public class MainActivity extends AppCompatActivity {
     private EditText edCreateMessage;
     private Button btnSendMessage;
     private ImageButton imgbtnmain1;
+    private ImageButton imgbtnmain2;
+    private ImageButton imgbtnmain3;
+    private ImageButton imgbtnmain4;
+    private ImageButton imgbtnmain5;
+    private ImageButton imgbtnmain6;
+    private ImageButton imgbtnmain7;
+    private ImageButton imgbtnmain8;
+    private ImageButton imgbtnmain9;
 
     private ArrayAdapter<String> adapterMainChat;
 
@@ -68,10 +72,10 @@ public class MainActivity extends AppCompatActivity {
                             setState("Not Connected");
                             break;
                         case ChatUtils.STATE_LISTEN:
-                            setState("Not Connected");
+                            setState("Waiting..");
                             break;
                         case ChatUtils.STATE_CONNECTING:
-                            setState("Connecting...");
+                            setState("Connecting..");
                             break;
                         case ChatUtils.STATE_CONNECTED:
                             setState("Connected: " + connectedDevice);
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setState("Not Connected");
         context = this;
 
         init();
@@ -122,6 +126,14 @@ public class MainActivity extends AppCompatActivity {
         edCreateMessage = findViewById(R.id.ed_enter_message);
         btnSendMessage = findViewById(R.id.btn_send_msg);
         imgbtnmain1 = findViewById(R.id.imgbtn_main_1);
+        imgbtnmain2 = findViewById(R.id.imgbtn_main_2);
+        imgbtnmain3 = findViewById(R.id.imgbtn_main_3);
+        imgbtnmain4 = findViewById(R.id.imgbtn_main_4);
+        imgbtnmain5 = findViewById(R.id.imgbtn_main_5);
+        imgbtnmain6 = findViewById(R.id.imgbtn_main_6);
+        imgbtnmain7 = findViewById(R.id.imgbtn_main_7);
+        imgbtnmain8 = findViewById(R.id.imgbtn_main_8);
+        imgbtnmain9 = findViewById(R.id.imgbtn_main_9);
 
         adapterMainChat = new ArrayAdapter<String>(context, R.layout.message_layout);
         listMainChat.setAdapter(adapterMainChat);
@@ -140,18 +152,83 @@ public class MainActivity extends AppCompatActivity {
         imgbtnmain1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = "OK";
-                if (!message.isEmpty()) {
-                    chatUtils.write(message.getBytes());
-                }
+                String message = "I’m hungry, please bring in some food";
+                chatUtils.write(message.getBytes());
             }
         });
+
+        imgbtnmain2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = "I’m thirsty, please bring me a cup of water";
+                chatUtils.write(message.getBytes());
+            }
+        });
+
+        imgbtnmain3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = "I feel pain, maybe a painkiller pill would do the trick";
+                chatUtils.write(message.getBytes());
+            }
+        });
+
+        imgbtnmain4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = "I need to go to the restroom, please clear the way for me";
+                chatUtils.write(message.getBytes());
+            }
+        });
+
+        imgbtnmain5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = "I need my medicine, please bring it to me";
+                chatUtils.write(message.getBytes());
+            }
+        });
+
+        imgbtnmain6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = "My condition is worsening, call for medical help please!";
+                chatUtils.write(message.getBytes());
+            }
+        });
+
+        imgbtnmain7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = "Yes";
+                chatUtils.write(message.getBytes());
+            }
+        });
+
+        imgbtnmain8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = "No";
+                chatUtils.write(message.getBytes());
+            }
+        });
+
+        imgbtnmain9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = "My Condition is Stable";
+                chatUtils.write(message.getBytes());
+            }
+        });
+
+
+
     }
 
     private void initBluetooth() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
-            Toast.makeText(context, "No bluetooth found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Device Not Supported!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -224,6 +301,9 @@ public class MainActivity extends AppCompatActivity {
     private void enableBluetooth() {
         if (!bluetoothAdapter.isEnabled()) {
             bluetoothAdapter.enable();
+            Toast.makeText(context, "Enabled Bluetooth", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Bluetooth already enabled!", Toast.LENGTH_SHORT).show();
         }
 
         if (bluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {

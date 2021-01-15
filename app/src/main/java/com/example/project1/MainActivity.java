@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                     byte[] buffer = (byte[]) message.obj;
                     String inputBuffer = new String(buffer, 0, message.arg1);
                     adapterMainChat.add(connectedDevice + ": " + inputBuffer);
-
                     break;
                 case MESSAGE_DEVICE_NAME:
                     connectedDevice = message.getData().getString(DEVICE_NAME);
@@ -168,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         imgbtnmain3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = "I feel pain, maybe a painkiller pill would do the trick";
+                String message = "I feel pain, maybe a painkiller pill would do";
                 chatUtils.write(message.getBytes());
             }
         });

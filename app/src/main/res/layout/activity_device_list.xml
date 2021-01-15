@@ -15,7 +15,7 @@ tools:context=".DeviceListActivity">
         android:text="@string/str_paired_devices"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <ListView
         android:id="@+id/list_paired_devices"
@@ -30,7 +30,7 @@ tools:context=".DeviceListActivity">
         android:text="@string/str_available_devices"
         android:textAlignment="center"
         android:textSize="24sp"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
     <ProgressBar
         android:id="@+id/progress_scan_devices"

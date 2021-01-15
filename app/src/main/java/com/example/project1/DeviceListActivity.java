@@ -52,6 +52,8 @@ public class DeviceListActivity extends AppCompatActivity {
         listPairedDevices = findViewById(R.id.list_paired_devices);
         listAvailableDevices = findViewById(R.id.list_available_devices);
         progressScanDevices = findViewById(R.id.progress_scan_devices);
+        TextView txtvu_PairedDevices = findViewById(R.id.txtvu_device_list_1);
+
 
         adapterPairedDevices = new ArrayAdapter<String>(context, R.layout.device_list_item);
         adapterAvailableDevices = new ArrayAdapter<String>(context, R.layout.device_list_item);
@@ -76,6 +78,7 @@ public class DeviceListActivity extends AppCompatActivity {
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
 
         if (pairedDevices != null && pairedDevices.size() > 0) {
+            txtvu_PairedDevices.setVisibility(View.VISIBLE);
             for (BluetoothDevice device : pairedDevices) {
                 adapterPairedDevices.add(device.getName() + "\n" + device.getAddress());
             }
@@ -121,7 +124,7 @@ public class DeviceListActivity extends AppCompatActivity {
                 if (adapterAvailableDevices.getCount() == 0) {
                     Toast.makeText(context, "No new devices found", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(context, "Click on the device to start the chat", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Tap a device to start", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -137,7 +140,15 @@ public class DeviceListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_scan_devices:
-                scanDevices();
+                if (bluetoothAdapter.isEnabled())
+                {
+                    scanDevices();
+                }
+
+                else{
+                    Toast.makeText(context, "Enable Bluetooth First!", Toast.LENGTH_SHORT).show();
+                }
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -145,6 +156,8 @@ public class DeviceListActivity extends AppCompatActivity {
     }
 
     private void scanDevices() {
+        TextView txtvu_AvailableDevices = findViewById(R.id.txtvu_device_list_2);
+        txtvu_AvailableDevices.setVisibility(View.VISIBLE);
         progressScanDevices.setVisibility(View.VISIBLE);
             tmpBtChecker.clear();
         adapterAvailableDevices.clear();

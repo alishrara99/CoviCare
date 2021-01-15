@@ -27,7 +27,7 @@ public class ChatUtils {
     private ConnectedThread connectedThread;
 
     private final UUID APP_UUID = UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
-    private final String APP_NAME = "BluetoothChatApp";
+    private final String APP_NAME = "CoviCare";
 
     public static final int STATE_NONE = 0;
     public static final int STATE_LISTEN = 1;
@@ -245,13 +245,13 @@ public class ChatUtils {
         public void run() {
             byte[] buffer = new byte[1024];
             int bytes;
-
-            try {
-                bytes = inputStream.read(buffer);
-
-                handler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
-            } catch (IOException e) {
-                connectionLost();
+            while (true) {
+                try {
+                    bytes = inputStream.read(buffer);
+                    handler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
+                } catch (IOException e) {
+                    connectionLost();
+                }
             }
         }
 

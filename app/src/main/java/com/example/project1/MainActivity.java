@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView listMainChat;
     private EditText edCreateMessage;
     private Button btnSendMessage;
+    private ImageButton imgbtnmain1;
+
     private ArrayAdapter<String> adapterMainChat;
 
     private final int LOCATION_PERMISSION_REQUEST = 101;
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     byte[] buffer = (byte[]) message.obj;
                     String inputBuffer = new String(buffer, 0, message.arg1);
                     adapterMainChat.add(connectedDevice + ": " + inputBuffer);
+
                     break;
                 case MESSAGE_DEVICE_NAME:
                     connectedDevice = message.getData().getString(DEVICE_NAME);
@@ -117,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         listMainChat = findViewById(R.id.list_conversation);
         edCreateMessage = findViewById(R.id.ed_enter_message);
         btnSendMessage = findViewById(R.id.btn_send_msg);
+        imgbtnmain1 = findViewById(R.id.imgbtn_main_1);
 
         adapterMainChat = new ArrayAdapter<String>(context, R.layout.message_layout);
         listMainChat.setAdapter(adapterMainChat);
@@ -127,6 +132,16 @@ public class MainActivity extends AppCompatActivity {
                 String message = edCreateMessage.getText().toString();
                 if (!message.isEmpty()) {
                     edCreateMessage.setText("");
+                    chatUtils.write(message.getBytes());
+                }
+            }
+        });
+
+        imgbtnmain1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String message = "OK";
+                if (!message.isEmpty()) {
                     chatUtils.write(message.getBytes());
                 }
             }

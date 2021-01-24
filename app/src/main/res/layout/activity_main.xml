@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
 
     <LinearLayout
         android:id="@+id/linearLayoutOne"
@@ -27,21 +29,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/settingsicon" />
+                android:theme="@style/style_imgbtn_meal"
+                android:src="@drawable/ic_meal_enabled" />
 
             <ImageButton
                 android:id="@+id/imgbtn_main_2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/settingsicon" />
+                android:theme="@style/style_imgbtn_drink"
+                android:src="@drawable/ic_drink_enabled" />
 
             <ImageButton
                 android:id="@+id/imgbtn_main_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/settingsicon" />
+                android:theme="@style/style_imgbtn_warning"
+                android:src="@drawable/ic_warning_enabled" />
         </LinearLayout>
 
         <LinearLayout
@@ -57,6 +62,7 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:text="@string/str_im_hungry"
+                android:theme="@style/TxtvuTheme"
                 android:textAlignment="center">
 
                 <requestFocus />
@@ -68,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/str_im_thirsty"
+                android:theme="@style/TxtvuTheme"
                 android:textAlignment="center" />
 
             <TextView
@@ -76,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/str_i_feel_pain"
+                android:theme="@style/TxtvuTheme"
                 android:textAlignment="center" />
         </LinearLayout>
     </LinearLayout>
@@ -100,21 +108,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/settingsicon" />
+                android:theme="@style/style_imgbtn_bathroom"
+                android:src="@drawable/ic_bathroom_enabled" />
 
             <ImageButton
                 android:id="@+id/imgbtn_main_5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/settingsicon" />
+                android:theme="@style/style_imgbtn_medicine"
+                android:src="@drawable/ic_medicine_enabled" />
 
             <ImageButton
                 android:id="@+id/imgbtn_main_6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/settingsicon" />
+                android:theme="@style/style_imgbtn_ambulance"
+                android:src="@drawable/ic_ambulance_enabled" />
         </LinearLayout>
 
         <LinearLayout
@@ -128,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/str_i_need_restroom"
+                android:theme="@style/TxtvuTheme"
                 android:textAlignment="center" />
 
             <TextView
@@ -136,6 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/str_need_medicine"
+                android:theme="@style/TxtvuTheme"
                 android:textAlignment="center" />
 
             <TextView
@@ -144,6 +157,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/str_bad_condition"
+                android:theme="@style/TxtvuTheme"
                 android:textAlignment="center" />
         </LinearLayout>
     </LinearLayout>
@@ -168,14 +182,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/settingsicon" />
+                android:theme="@style/style_imgbtn_yes"
+                android:src="@drawable/ic_yes_enabled" />
 
             <ImageButton
                 android:id="@+id/imgbtn_main_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/settingsicon" />
+                android:theme="@style/style_imgbtn_no"
+                android:src="@drawable/ic_no_enabled" />
 
             <ImageButton
                 android:id="@+id/imgbtn_main_9"
@@ -197,6 +213,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/str_yes"
+                android:theme="@style/TxtvuTheme"
                 android:textAlignment="center" />
 
             <TextView
@@ -205,6 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/str_no"
+                android:theme="@style/TxtvuTheme"
                 android:textAlignment="center" />
 
             <TextView
@@ -213,6 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/str_stable_condition"
+                android:theme="@style/TxtvuTheme"
                 android:textAlignment="center"
                 android:visibility="gone" />
         </LinearLayout>
@@ -230,16 +249,30 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#efefef"
+            android:layout_marginTop="5dp"
             tools:context=".MainActivity">
 
+
+          <!--  <ScrollView
+                android:id="@+id/scroller"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="60dp"
+                android:background="#efefef"> -->
 
             <ListView
                 android:id="@+id/list_conversation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="60dp"
-                android:padding="10dp"
-                android:background="#efefef" />
+                android:background="#efefef"
+                android:divider="#efefef"
+                android:stackFromBottom="true"
+                android:dividerHeight="5dp"
+                android:transcriptMode="alwaysScroll"
+                android:padding="10dp" />
+          <!--  </ScrollView> -->
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -257,11 +290,13 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:text="@string/str_label_btn_send" />
+                    android:text="@string/str_label_btn_send"
+                    android:theme="@style/style_btn"/>
             </RelativeLayout>
 
         </RelativeLayout>
     </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,4 +7,76 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TxtvuTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/norwester</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="ChatTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/norwester</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="style_btn" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@drawable/btn_color</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:fontFamily">@font/norwester</item>
+
+    </style>
+
+    <style name="style_imgbtn_meal" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@drawable/imgbtn_meal</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:drawable">@drawable/imgbtn_meal</item>
+    </style>
+
+    <style name="style_imgbtn_drink" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@drawable/imgbtn_drink</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:drawable">@drawable/imgbtn_drink</item>
+    </style>
+
+    <style name="style_imgbtn_warning" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@drawable/imgbtn_warning</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:drawable">@drawable/imgbtn_warning</item>
+    </style>
+
+    <style name="style_imgbtn_bathroom" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@drawable/imgbtn_bathroom</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:drawable">@drawable/imgbtn_bathroom</item>
+        <item name="android:src">@drawable/imgbtn_bathroom</item>
+    </style>
+
+    <style name="style_imgbtn_medicine" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@drawable/imgbtn_medicine</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:drawable">@drawable/imgbtn_medicine</item>
+    </style>
+
+    <style name="style_imgbtn_ambulance" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@drawable/imgbtn_ambulance</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:drawable">@drawable/imgbtn_ambulance</item>
+    </style>
+
+    <style name="style_imgbtn_yes" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@drawable/imgbtn_yes</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:drawable">@drawable/imgbtn_yes</item>
+    </style>
+
+    <style name="style_imgbtn_no" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@drawable/imgbtn_no</item>
+        <item name="android:textColor">@color/md_white_1000</item>
+        <item name="android:drawable">@drawable/imgbtn_no</item>
+    </style>
+
+
+
+
+
+
 </resources>

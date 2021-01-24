@@ -4,21 +4,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,6 +32,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 
 
@@ -70,27 +79,33 @@ public class MainActivity extends AppCompatActivity {
                     switch (message.arg1) {
                         case ChatUtils.STATE_NONE:
                             setState("Not Connected");
+                            greyoutWidgets();
                             break;
                         case ChatUtils.STATE_LISTEN:
-                            setState("Waiting..");
+                            setState("Not Connected");
+                            greyoutWidgets();
                             break;
                         case ChatUtils.STATE_CONNECTING:
                             setState("Connecting..");
+                            greyoutWidgets();
                             break;
                         case ChatUtils.STATE_CONNECTED:
                             setState("Connected: " + connectedDevice);
+                            unGreyoutWidgets();
                             break;
                     }
                     break;
                 case MESSAGE_WRITE:
                     byte[] buffer1 = (byte[]) message.obj;
                     String outputBuffer = new String(buffer1);
-                    adapterMainChat.add("Me: " + outputBuffer);
+                    String time = new SimpleDateFormat("hh:mm ", Locale.getDefault()).format(Calendar.getInstance().getTime());
+                    adapterMainChat.add(time + "Me: " + outputBuffer);
                     break;
                 case MESSAGE_READ:
                     byte[] buffer = (byte[]) message.obj;
                     String inputBuffer = new String(buffer, 0, message.arg1);
-                    adapterMainChat.add(connectedDevice + ": " + inputBuffer);
+                    String time2 = new SimpleDateFormat("hh:mm ", Locale.getDefault()).format(Calendar.getInstance().getTime());
+                    adapterMainChat.add(time2 + connectedDevice + ": " + inputBuffer);
                     break;
                 case MESSAGE_DEVICE_NAME:
                     connectedDevice = message.getData().getString(DEVICE_NAME);
@@ -112,12 +127,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //titleFont();
         setState("Not Connected");
+
         context = this;
+
 
         init();
         initBluetooth();
         chatUtils = new ChatUtils(context, handler);
+        chatUtils.setState(chatUtils.STATE_NONE);
+
+
     }
 
     private void init() {
@@ -133,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         imgbtnmain7 = findViewById(R.id.imgbtn_main_7);
         imgbtnmain8 = findViewById(R.id.imgbtn_main_8);
         imgbtnmain9 = findViewById(R.id.imgbtn_main_9);
+
 
         adapterMainChat = new ArrayAdapter<String>(context, R.layout.message_layout);
         listMainChat.setAdapter(adapterMainChat);
@@ -167,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         imgbtnmain3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String message = "I feel pain, maybe a painkiller pill would do";
+                String message = "I feel pain, maybe a painkiller pill would help";
                 chatUtils.write(message.getBytes());
             }
         });
@@ -241,7 +263,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_search_devices:
-                checkPermissions();
+                if (bluetoothAdapter.isEnabled())
+                    checkPermissions();
+                else
+                    Toast.makeText(context, "Enable Bluetooth First!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_enable_bluetooth:
                 enableBluetooth();
@@ -310,6 +335,63 @@ public class MainActivity extends AppCompatActivity {
             discoveryIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
             startActivity(discoveryIntent);
         }
+    }
+
+   /* private void scrollDown() {
+        ScrollView scroller = findViewById(R.id.scroller);
+        scroller.smoothScrollTo(0, listMainChat.getBottom());
+    } */
+
+    private void greyoutWidgets() {
+        edCreateMessage.setClickable(false);
+        btnSendMessage.setClickable(false);
+        imgbtnmain1.setClickable(false);
+        imgbtnmain2.setClickable(false);
+        imgbtnmain3.setClickable(false);
+        imgbtnmain4.setClickable(false);
+        imgbtnmain5.setClickable(false);
+        imgbtnmain6.setClickable(false);
+        imgbtnmain7.setClickable(false);
+        imgbtnmain8.setClickable(false);
+        imgbtnmain9.setClickable(false);
+
+        edCreateMessage.setEnabled(false);
+        btnSendMessage.setEnabled(false);
+        imgbtnmain1.setEnabled(false);
+        imgbtnmain2.setEnabled(false);
+        imgbtnmain3.setEnabled(false);
+        imgbtnmain4.setEnabled(false);
+        imgbtnmain5.setEnabled(false);
+        imgbtnmain6.setEnabled(false);
+        imgbtnmain7.setEnabled(false);
+        imgbtnmain8.setEnabled(false);
+        imgbtnmain9.setEnabled(false);
+    }
+
+    private void unGreyoutWidgets() {
+        edCreateMessage.setClickable(true);
+        btnSendMessage.setClickable(true);
+        imgbtnmain1.setClickable(true);
+        imgbtnmain2.setClickable(true);
+        imgbtnmain3.setClickable(true);
+        imgbtnmain4.setClickable(true);
+        imgbtnmain5.setClickable(true);
+        imgbtnmain6.setClickable(true);
+        imgbtnmain7.setClickable(true);
+        imgbtnmain8.setClickable(true);
+        imgbtnmain9.setClickable(true);
+
+        edCreateMessage.setEnabled(true);
+        btnSendMessage.setEnabled(true);
+        imgbtnmain1.setEnabled(true);
+        imgbtnmain2.setEnabled(true);
+        imgbtnmain3.setEnabled(true);
+        imgbtnmain4.setEnabled(true);
+        imgbtnmain5.setEnabled(true);
+        imgbtnmain6.setEnabled(true);
+        imgbtnmain7.setEnabled(true);
+        imgbtnmain8.setEnabled(true);
+        imgbtnmain9.setEnabled(true);
     }
 
     /*@Override

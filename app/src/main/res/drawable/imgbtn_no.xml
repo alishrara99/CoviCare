@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Disabled -->
+    <item android:state_enabled="false"
+        android:color="@color/color_imgbtn_no_disabled"
+        android:drawable="@drawable/ic_no_enabled"
+        android:src="@drawable/ic_no_enabled" />
+
+    <!-- Enabled -->
+    <item android:state_enabled="true"
+        android:color="@color/color_imgbtn_no_enabled"
+        android:src="@drawable/ic_no_enabled"
+        android:drawable="@drawable/ic_no_enabled" />
+
+</selector>

@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="color_btn_enabled">#212121</color>
+    <color name="color_btn_disabled">#616161</color>
+    <color name="md_white_1000">#FFFFFF</color>
+
+    <color name="color_imgbtn_meal_enabled">#00897B</color>
+    <color name="color_imgbtn_meal_disabled">#4DB6AC</color>
+
+    <color name="color_imgbtn_drink_enabled">#9E9D24</color>
+    <color name="color_imgbtn_drink_disabled">#C0CA33</color>
+
+    <color name="color_imgbtn_warning_enabled">#FFFF00</color>
+    <color name="color_imgbtn_warning_disabled">#FFF176</color>
+
+    <color name="color_imgbtn_bathroom_enabled">#00E676</color>
+    <color name="color_imgbtn_bathroom_disabled">#69F0AE</color>
+
+    <color name="color_imgbtn_medicine_enabled">#90A4AE</color>
+    <color name="color_imgbtn_medicine_disabled">#CFD8DC</color>
+
+    <color name="color_imgbtn_ambulance_enabled">#FF6F00</color>
+    <color name="color_imgbtn_ambulance_disabled">#FB8C00</color>
+
+    <color name="color_imgbtn_yes_enabled">#388E3C</color>
+    <color name="color_imgbtn_yes_disabled">#66BB6A</color>
+
+    <color name="color_imgbtn_no_enabled">#D50000</color>
+    <color name="color_imgbtn_no_disabled">#E53935</color>
+
 </resources>

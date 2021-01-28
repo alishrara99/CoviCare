@@ -135,7 +135,8 @@ public class MainActivity extends AppCompatActivity {
         init();
         initBluetooth();
         chatUtils = new ChatUtils(context, handler);
-        chatUtils.setState(chatUtils.STATE_NONE);
+        chatUtils.start();
+        //chatUtils.setState(chatUtils.STATE_NONE);
 
 
     }
@@ -264,6 +265,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            /*case R.id.menu_disconnect:
+                if (initBluetooth()==true && chatUtils.getState()==ChatUtils.STATE_CONNECTED) {
+                    chatUtils.stop();
+                    chatUtils.connectionLost();
+                }
+                else
+                    Toast.makeText(context, "Not Connected!", Toast.LENGTH_SHORT).show();
+                return true; */
             case R.id.menu_search_devices:
                 if (initBluetooth()==true) {
                     if (bluetoothAdapter.isEnabled())

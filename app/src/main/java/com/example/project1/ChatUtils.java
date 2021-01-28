@@ -53,7 +53,7 @@ public class ChatUtils {
         handler.obtainMessage(MainActivity.MESSAGE_STATE_CHANGED, state, -1).sendToTarget();
     }
 
-    private synchronized void start() {
+    public synchronized void start() {
         if (connectThread != null) {
             connectThread.cancel();
             connectThread = null;

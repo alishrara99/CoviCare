@@ -3,8 +3,8 @@
     <!-- Disabled -->
     <item android:state_enabled="false"
         android:color="@color/color_imgbtn_bathroom_disabled"
-        android:drawable="@drawable/ic_bathroom_disabled"
-        android:src="@drawable/ic_bathroom_disabled" />
+        android:drawable="@drawable/ic_bathroom_enabled"
+        android:src="@drawable/ic_bathroom_enabled" />
 
     <!-- Enabled -->
     <item android:state_enabled="true"

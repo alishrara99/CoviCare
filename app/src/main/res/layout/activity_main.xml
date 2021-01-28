@@ -241,6 +241,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
+        android:theme="@style/ChatTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -250,16 +251,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#efefef"
+            android:theme="@style/ChatTheme"
             android:layout_marginTop="5dp"
             tools:context=".MainActivity">
 
 
-          <!--  <ScrollView
-                android:id="@+id/scroller"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="60dp"
-                android:background="#efefef"> -->
 
             <ListView
                 android:id="@+id/list_conversation"
@@ -269,10 +265,11 @@
                 android:background="#efefef"
                 android:divider="#efefef"
                 android:stackFromBottom="true"
+                android:theme="@style/ChatTheme"
                 android:dividerHeight="5dp"
                 android:transcriptMode="alwaysScroll"
                 android:padding="10dp" />
-          <!--  </ScrollView> -->
+
 
             <RelativeLayout
                 android:layout_width="match_parent"

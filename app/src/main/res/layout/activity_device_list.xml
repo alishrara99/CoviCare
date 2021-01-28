@@ -3,6 +3,7 @@
 xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
+android:theme="@style/ChatTheme"
 android:layout_height="match_parent"
 android:orientation="vertical"
 tools:context=".DeviceListActivity">
@@ -12,15 +13,20 @@ tools:context=".DeviceListActivity">
         android:id="@+id/txtvu_device_list_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="@string/str_paired_devices"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:theme="@style/TxtvuTheme"
         android:visibility="gone" />
 
     <ListView
         android:id="@+id/list_paired_devices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/ChatTheme"
+        android:divider="#FAFAFA"
+        android:dividerHeight="5dp"
         android:padding="10dp"/>
 
     <TextView
@@ -30,6 +36,7 @@ tools:context=".DeviceListActivity">
         android:text="@string/str_available_devices"
         android:textAlignment="center"
         android:textSize="24sp"
+        android:theme="@style/TxtvuTheme"
         android:visibility="gone" />
 
     <ProgressBar
@@ -43,5 +50,8 @@ tools:context=".DeviceListActivity">
         android:id="@+id/list_available_devices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:theme="@style/ChatTheme"
+        android:divider="#FAFAFA"
+        android:dividerHeight="5dp"
         android:padding="10dp"/>
 </LinearLayout>

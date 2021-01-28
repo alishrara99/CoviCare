@@ -5,18 +5,23 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/norwester</item>
     </style>
 
     <style name="TxtvuTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:fontFamily">@font/norwester</item>
+        <item name="android:fontFamily">@font/latobold</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
     <style name="ChatTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:fontFamily">@font/norwester</item>
+        <item name="android:fontFamily">@font/latoregular</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
+
+
+
 
     <style name="style_btn" parent="ThemeOverlay.AppCompat">
         <item name="colorButtonNormal">@drawable/btn_color</item>

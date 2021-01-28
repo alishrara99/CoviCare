@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -127,9 +128,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //titleFont();
         setState("Not Connected");
-
         context = this;
 
 
@@ -246,11 +245,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void initBluetooth() {
+    private boolean initBluetooth() {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
             Toast.makeText(context, "Device Not Supported!", Toast.LENGTH_SHORT).show();
+            return false;
         }
+        else
+            return true;
     }
 
     @Override
@@ -263,13 +265,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_search_devices:
-                if (bluetoothAdapter.isEnabled())
-                    checkPermissions();
+                if (initBluetooth()==true) {
+                    if (bluetoothAdapter.isEnabled())
+                        checkPermissions();
+                    else
+                        Toast.makeText(context, "Enable Bluetooth First!", Toast.LENGTH_SHORT).show();
+                }
                 else
-                    Toast.makeText(context, "Enable Bluetooth First!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Device Not Supported!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_enable_bluetooth:
+                if (initBluetooth()==true)
                 enableBluetooth();
+                else
+                    Toast.makeText(context, "Device Not Supported!", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -366,9 +375,22 @@ public class MainActivity extends AppCompatActivity {
         imgbtnmain7.setEnabled(false);
         imgbtnmain8.setEnabled(false);
         imgbtnmain9.setEnabled(false);
+
+
+        imgbtnmain1.setAlpha((float) 0.66);
+        imgbtnmain2.setAlpha((float) 0.66);
+        imgbtnmain3.setAlpha((float) 0.66);
+        imgbtnmain4.setAlpha((float) 0.66);
+        imgbtnmain5.setAlpha((float) 0.66);
+        imgbtnmain6.setAlpha((float) 0.66);
+        imgbtnmain7.setAlpha((float) 0.66);
+        imgbtnmain8.setAlpha((float) 0.66);
+        imgbtnmain9.setAlpha((float) 0.66);
     }
 
     private void unGreyoutWidgets() {
+
+
         edCreateMessage.setClickable(true);
         btnSendMessage.setClickable(true);
         imgbtnmain1.setClickable(true);
@@ -392,7 +414,22 @@ public class MainActivity extends AppCompatActivity {
         imgbtnmain7.setEnabled(true);
         imgbtnmain8.setEnabled(true);
         imgbtnmain9.setEnabled(true);
+
+        imgbtnmain1.setAlpha((float) 1);
+        imgbtnmain2.setAlpha((float) 1);
+        imgbtnmain3.setAlpha((float) 1);
+        imgbtnmain4.setAlpha((float) 1);
+        imgbtnmain5.setAlpha((float) 1);
+        imgbtnmain6.setAlpha((float) 1);
+        imgbtnmain7.setAlpha((float) 1);
+        imgbtnmain8.setAlpha((float) 1);
+        imgbtnmain9.setAlpha((float) 1);
+
+
+
     }
+
+
 
     /*@Override
     protected void onDestroy() {

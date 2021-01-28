@@ -3,7 +3,7 @@
     <!-- Disable background -->
     <item android:state_enabled="false"
         android:color="@color/color_imgbtn_drink_disabled"
-        android:drawable="@drawable/ic_drink_disabled"/>
+        android:drawable="@drawable/ic_drink_enabled"/>
 
     <!-- Enabled background -->
     <item android:state_enabled="true"

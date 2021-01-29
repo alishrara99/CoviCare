@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_covicare_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/loadingScreenTheme">
         <activity android:name=".DeviceListActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>

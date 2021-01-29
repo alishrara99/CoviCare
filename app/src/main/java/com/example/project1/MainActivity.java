@@ -7,10 +7,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.Manifest;
-import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -108,8 +106,9 @@ public class MainActivity extends AppCompatActivity {
                     String inputBuffer = new String(buffer, 0, message.arg1);
                     String time2 = new SimpleDateFormat("hh:mm ", Locale.getDefault()).format(Calendar.getInstance().getTime());
                     adapterMainChat.add(time2 + connectedDevice + ": " + inputBuffer);
+                    sound_msg_received();
                     //addNotification(inputBuffer);
-                    //notification(inputBuffer);
+                    notification(inputBuffer);
                     break;
                 case MESSAGE_DEVICE_NAME:
                     connectedDevice = message.getData().getString(DEVICE_NAME);
@@ -130,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
 
         context = this;
@@ -138,12 +138,20 @@ public class MainActivity extends AppCompatActivity {
         init();
         initBluetooth();
         chatUtils = new ChatUtils(context, handler);
-        chatUtils.setState(ChatUtils.STATE_NONE);
+        if (!(chatUtils.getState()==ChatUtils.STATE_CONNECTED))
+        {
+            chatUtils.setState(ChatUtils.STATE_NONE);
+        }
         if (initBluetooth()== true && bluetoothAdapter.isEnabled()) {
             chatUtils.startListening();
         }
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
     private void init() {
@@ -455,6 +463,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void sound_msg_received(){
+        final MediaPlayer sound_msg_received = MediaPlayer.create(this, R.raw.msg_received);
+        sound_msg_received.start();
+    }
+
     private void sound_msg_sent(){
         final MediaPlayer sound_msg_sent = MediaPlayer.create(this, R.raw.msg_sent);
         sound_msg_sent.start();
@@ -462,7 +475,8 @@ public class MainActivity extends AppCompatActivity {
 
    /* private void addNotification(String getString) {
         // Builds your notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder builder = new
+                NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_covicare_round)
                 .setContentTitle("CoviCare")
                 .setContentText(getString);
@@ -475,7 +489,7 @@ public class MainActivity extends AppCompatActivity {
         // Add as notification
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
-    }
+    } */
 
     private void notification(String getString) {
         NotificationCompat.Builder builder= new
@@ -485,11 +499,11 @@ public class MainActivity extends AppCompatActivity {
         builder.setContentText(getString);
         builder.setSmallIcon(R.mipmap.ic_covicare_round);
 
-        Intent intent=new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent= PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
-        builder.setDefaults(Notification.DEFAULT_VIBRATE);
-        builder.setDefaults(Notification.DEFAULT_SOUND);
+        //Intent intent=new Intent(this, MainActivity.class);
+        //PendingIntent pendingIntent= PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        //builder.setContentIntent(pendingIntent);
+        //builder.setDefaults(Notification.DEFAULT_VIBRATE);
+        //builder.setDefaults(Notification.DEFAULT_SOUND);
 
 
         NotificationManager notificationManager= (NotificationManager)
@@ -498,7 +512,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-*/
+
 
 
     /*@Override

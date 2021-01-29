@@ -8,6 +8,11 @@
         <item name="android:fontFamily">@font/norwester</item>
     </style>
 
+    <style name="loadingScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/loading_screen</item>
+        <item name="android:statusBarColor">@color/md_white_1000</item>
+    </style>
+
     <style name="TxtvuTheme" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/latobold</item>
         <item name="android:textStyle">bold</item>

@@ -48,12 +48,14 @@ public class ChatUtils {
         return state;
     }
 
+
+
     public synchronized void setState(int state) {
         this.state = state;
         handler.obtainMessage(MainActivity.MESSAGE_STATE_CHANGED, state, -1).sendToTarget();
     }
 
-    public synchronized void start() {
+    private synchronized void start() {
         if (connectThread != null) {
             connectThread.cancel();
             connectThread = null;
@@ -251,6 +253,7 @@ public class ChatUtils {
                     handler.obtainMessage(MainActivity.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
                 } catch (IOException e) {
                     connectionLost();
+                    break;
                 }
             }
         }
@@ -273,23 +276,25 @@ public class ChatUtils {
         }
     }
 
-    private void connectionLost() {
+    public void connectionLost() {
         Message message = handler.obtainMessage(MainActivity.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
         bundle.putString(MainActivity.TOAST, "Connection Lost");
         message.setData(bundle);
         handler.sendMessage(message);
 
+        ChatUtils.this.stop();
         ChatUtils.this.start();
     }
 
     private synchronized void connectionFailed() {
         Message message = handler.obtainMessage(MainActivity.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
-        bundle.putString(MainActivity.TOAST, "Awaiting connection..");
+        bundle.putString(MainActivity.TOAST, "Connection Failed");
         message.setData(bundle);
         handler.sendMessage(message);
 
+        ChatUtils.this.stop();
         ChatUtils.this.start();
     }
 
@@ -314,5 +319,9 @@ public class ChatUtils {
         handler.sendMessage(message);
 
         setState(STATE_CONNECTED);
+    }
+
+    public void startListening() {
+        ChatUtils.this.start();
     }
 }

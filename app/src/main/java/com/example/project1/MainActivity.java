@@ -1,31 +1,28 @@
 package com.example.project1;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.Manifest;
-import android.app.ActionBar;
+import android.app.PendingIntent;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -43,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
     private BluetoothAdapter bluetoothAdapter;
     private ChatUtils chatUtils;
+
 
     private ListView listMainChat;
     private EditText edCreateMessage;
@@ -71,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String DEVICE_NAME = "deviceName";
     public static final String TOAST = "toast";
     private String connectedDevice;
+
+    private final Handler delay = new Handler();
 
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -101,12 +101,15 @@ public class MainActivity extends AppCompatActivity {
                     String outputBuffer = new String(buffer1);
                     String time = new SimpleDateFormat("hh:mm ", Locale.getDefault()).format(Calendar.getInstance().getTime());
                     adapterMainChat.add(time + "Me: " + outputBuffer);
+                    sound_msg_sent();
                     break;
                 case MESSAGE_READ:
                     byte[] buffer = (byte[]) message.obj;
                     String inputBuffer = new String(buffer, 0, message.arg1);
                     String time2 = new SimpleDateFormat("hh:mm ", Locale.getDefault()).format(Calendar.getInstance().getTime());
                     adapterMainChat.add(time2 + connectedDevice + ": " + inputBuffer);
+                    //addNotification(inputBuffer);
+                    //notification(inputBuffer);
                     break;
                 case MESSAGE_DEVICE_NAME:
                     connectedDevice = message.getData().getString(DEVICE_NAME);
@@ -128,15 +131,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setState("Not Connected");
+
         context = this;
 
 
         init();
         initBluetooth();
         chatUtils = new ChatUtils(context, handler);
-        chatUtils.start();
-        //chatUtils.setState(chatUtils.STATE_NONE);
+        chatUtils.setState(ChatUtils.STATE_NONE);
+        if (initBluetooth()== true && bluetoothAdapter.isEnabled()) {
+            chatUtils.startListening();
+        }
 
 
     }
@@ -154,6 +159,8 @@ public class MainActivity extends AppCompatActivity {
         imgbtnmain7 = findViewById(R.id.imgbtn_main_7);
         imgbtnmain8 = findViewById(R.id.imgbtn_main_8);
         imgbtnmain9 = findViewById(R.id.imgbtn_main_9);
+
+
 
 
         adapterMainChat = new ArrayAdapter<String>(context, R.layout.message_layout);
@@ -265,27 +272,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            /*case R.id.menu_disconnect:
+               case R.id.menu_disconnect:
                 if (initBluetooth()==true && chatUtils.getState()==ChatUtils.STATE_CONNECTED) {
-                    chatUtils.stop();
                     chatUtils.connectionLost();
                 }
                 else
                     Toast.makeText(context, "Not Connected!", Toast.LENGTH_SHORT).show();
-                return true; */
+                return true;
             case R.id.menu_search_devices:
                 if (initBluetooth()==true) {
-                    if (bluetoothAdapter.isEnabled())
+                    if (bluetoothAdapter.isEnabled() && !(chatUtils.getState()==ChatUtils.STATE_CONNECTED)) {
                         checkPermissions();
-                    else
+                    }
+                    else if (bluetoothAdapter.isEnabled()){
+                        Toast.makeText(context, "Disconnect Current Device First!", Toast.LENGTH_SHORT).show();
+                    } else
                         Toast.makeText(context, "Enable Bluetooth First!", Toast.LENGTH_SHORT).show();
                 }
                 else
                     Toast.makeText(context, "Device Not Supported!", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.menu_enable_bluetooth:
-                if (initBluetooth()==true)
-                enableBluetooth();
+                if (initBluetooth()==true) {
+                    enableBluetooth();
+
+                }
                 else
                     Toast.makeText(context, "Device Not Supported!", Toast.LENGTH_SHORT).show();
                 return true;
@@ -344,6 +355,12 @@ public class MainActivity extends AppCompatActivity {
         if (!bluetoothAdapter.isEnabled()) {
             bluetoothAdapter.enable();
             Toast.makeText(context, "Enabled Bluetooth", Toast.LENGTH_SHORT).show();
+            delay.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    chatUtils.startListening();
+                }
+            }, 2500);
         }else{
             Toast.makeText(context, "Bluetooth already enabled!", Toast.LENGTH_SHORT).show();
         }
@@ -438,6 +455,50 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void sound_msg_sent(){
+        final MediaPlayer sound_msg_sent = MediaPlayer.create(this, R.raw.msg_sent);
+        sound_msg_sent.start();
+    }
+
+   /* private void addNotification(String getString) {
+        // Builds your notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_covicare_round)
+                .setContentTitle("CoviCare")
+                .setContentText(getString);
+
+        // Creates the intent needed to show the notification
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
+
+    private void notification(String getString) {
+        NotificationCompat.Builder builder= new
+                NotificationCompat.Builder(this);
+        builder.setAutoCancel(true);
+        builder.setContentTitle("CoviCare");
+        builder.setContentText(getString);
+        builder.setSmallIcon(R.mipmap.ic_covicare_round);
+
+        Intent intent=new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent= PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+        builder.setDefaults(Notification.DEFAULT_VIBRATE);
+        builder.setDefaults(Notification.DEFAULT_SOUND);
+
+
+        NotificationManager notificationManager= (NotificationManager)
+                getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(0, builder.build());
+    }
+
+
+*/
 
 
     /*@Override

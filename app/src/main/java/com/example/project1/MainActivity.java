@@ -1,12 +1,16 @@
 package com.example.project1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
@@ -15,6 +19,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -67,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String DEVICE_NAME = "deviceName";
     public static final String TOAST = "toast";
     private String connectedDevice;
+    private String MAIN_CHANNEL_ID;
 
     private final Handler delay = new Handler();
 
@@ -131,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
+        MAIN_CHANNEL_ID = "MAIN_CHANNEL_ID";
 
         context = this;
 
@@ -145,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         if (initBluetooth()== true && bluetoothAdapter.isEnabled()) {
             chatUtils.startListening();
         }
+        createNotificationChannel();
 
 
     }
@@ -473,31 +483,21 @@ public class MainActivity extends AppCompatActivity {
         sound_msg_sent.start();
     }
 
-   /* private void addNotification(String getString) {
-        // Builds your notification
-        NotificationCompat.Builder builder = new
-                NotificationCompat.Builder(this)
-                .setSmallIcon(R.mipmap.ic_covicare_round)
-                .setContentTitle("CoviCare")
-                .setContentText(getString);
 
-        // Creates the intent needed to show the notification
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-
-        // Add as notification
-        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
-    } */
 
     private void notification(String getString) {
+        //Uri uri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder= new
                 NotificationCompat.Builder(this);
         builder.setAutoCancel(true);
-        builder.setContentTitle("CoviCare");
+        builder.setContentTitle(connectedDevice);
         builder.setContentText(getString);
         builder.setSmallIcon(R.mipmap.ic_covicare_round);
+        builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+        builder.setPriority(2);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setChannelId(MAIN_CHANNEL_ID);
+        }
 
         //Intent intent=new Intent(this, MainActivity.class);
         //PendingIntent pendingIntent= PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -509,6 +509,20 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager= (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(0, builder.build());
+    }
+
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mainChannel = new NotificationChannel
+                    (MAIN_CHANNEL_ID,"Main Channel", NotificationManager.IMPORTANCE_HIGH);
+            mainChannel.enableVibration(true);
+            mainChannel.shouldVibrate();
+
+        NotificationManager nm = (NotificationManager)
+                getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.createNotificationChannel(mainChannel);
+        }
     }
 
 

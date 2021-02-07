@@ -1,12 +1,10 @@
 package com.example.project1;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
 import android.app.Notification;
@@ -19,8 +17,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -91,12 +87,14 @@ public class MainActivity extends AppCompatActivity {
                         case ChatUtils.STATE_LISTEN:
                             setState("Not Connected");
                             greyoutWidgets();
+                            sound_msg_disconnected();
                             break;
                         case ChatUtils.STATE_CONNECTING:
                             setState("Connecting..");
                             greyoutWidgets();
                             break;
                         case ChatUtils.STATE_CONNECTED:
+                            sound_msg_connected();
                             setState("Connected: " + connectedDevice);
                             unGreyoutWidgets();
                             break;
@@ -137,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sound_msg_launched();
         setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_main);
         MAIN_CHANNEL_ID = "MAIN_CHANNEL_ID";
@@ -481,6 +480,20 @@ public class MainActivity extends AppCompatActivity {
     private void sound_msg_sent(){
         final MediaPlayer sound_msg_sent = MediaPlayer.create(this, R.raw.msg_sent);
         sound_msg_sent.start();
+    }
+
+    private void sound_msg_connected(){
+        final MediaPlayer sound_msg_connected = MediaPlayer.create(this, R.raw.msg_connected);
+        sound_msg_connected.start();
+    }
+
+    public void sound_msg_disconnected(){
+        final MediaPlayer sound_msg_disconnected = MediaPlayer.create(this, R.raw.msg_disconnected);
+        sound_msg_disconnected.start();
+    }
+    private void sound_msg_launched(){
+        final MediaPlayer sound_msg_launched = MediaPlayer.create(this, R.raw.msg_launched);
+        sound_msg_launched.start();
     }
 
 
